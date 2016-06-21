@@ -69,7 +69,7 @@ public class RestaurantTrackerSpringController {
     @RequestMapping(path="/delete-restaurant", method=RequestMethod.POST)
     public String delete(int id){
         restaurants.delete(id);
-        return "redirects:/";
+        return "redirect:/";
     }
 
 }//End of Controller Class
