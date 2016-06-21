@@ -1,14 +1,56 @@
 <!DOCTYPE html>
-<!--
-  ~ Copyright (c) 2016.
-  -->
-
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Restaruant Tracker</title>
+    </head>
 
-</body>
+
+    <body>
+        <form action="/logout" method="post">
+            <button type="submit">Logout</button>
+        </form>
+
+        <br>
+
+        <form action="/create-restaurant" method="post">
+            <input type="text" name="name" placeholder="Name"/>
+            <input type="text" name="location" placeholder="Location"/>
+            <select name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <input type="text" name="comment" placeholder="Comment"/>
+            <button type="submit">Submit Restaurant</button>
+        </form>
+
+        <br>
+
+
+
+        <br>
+        <table>
+            <td>
+                <ol style="type:none">
+                    {{#restaurants}}
+                        <tr>
+                            <li><b>{{name}}</b> - {{location}} - {{rating}}/5 - {{comment}}
+                                <form action="/edit-restaurant" method="get">
+                                    <input type="hidden" name="id" value="{{id}}">
+                                    <button type="submit">Edit Review</button>
+                                </form>
+                                <form action="/delete-restaurant" method="post" style="display:inline-block">
+                                    <input type="hidden" name="id" value="{{id}}"/>
+                                    <button type="submit">Delete Restaurant</button>
+                                </form>
+                            </li>
+                         </tr>
+                    {{/restaurants}}
+                </ol>
+            </td>
+        </table>
+    </body>
 </html>

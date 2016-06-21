@@ -34,4 +34,7 @@ public class Restaurant {
         this.rating = rating;
         this.comment = comment;
     }
+
+    public Restaurant() {
+    }
 }
