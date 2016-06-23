@@ -25,5 +25,4 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Integer
     @Query("SELECT r FROM Restaurant r WHERE r.location LIKE ?1%")  //use class name for 'Restaurant' specification. % sign is a wildcard
     public Iterable<Restaurant> searchLocation(String location);
 
-
 }

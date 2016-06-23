@@ -27,9 +27,9 @@ public class RestaurantTrackerSpringController {
 
 
     @PostConstruct //Makes method run right when the controller is created aka before everything but spring booting up
-    public void init(){
+    public void init() throws PasswordStorage.CannotPerformOperationException {
         if(users.count()==0){                       //if no user exists create a default one and add it to the DB.
-            User user = new User("John", "pass");
+            User user = new User("John", PasswordStorage.createHash("pass"));
             users.save(user);
         }
     }
@@ -68,10 +68,10 @@ public class RestaurantTrackerSpringController {
     public String login(String username, String password, HttpSession session) throws Exception {
         User user = users.findByName(username);   // Setting User object equal to the "users" return from the table query
         if(user == null){
-            user = new User(username, password);
+            user = new User(username, PasswordStorage.createHash(password));
             users.save(user);                   //This uses predefined method in hibernate from the interface we created (UserRepository)
         }
-        else if(!user.password.equals(password)) {
+        else if(!PasswordStorage.verifyPassword(password, user.password)) {
             throw new Exception("------WRONG PASSWORD-----");
         }
         session.setAttribute("username", username);
